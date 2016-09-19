@@ -1,0 +1,68 @@
+<apex:page Controller="VFDatatableControllerHandler" showHeader="false" sidebar="false">
+	<head>
+    	<apex:includescript value="{!URLFOR($Resource.jQuerySource)}" / >
+            <apex:includescript value="{!URLFOR($Resource.jqgrid)}" / >
+       <!-- <apex:includescript value="{!URLFOR($Resource.jqueryDatatableJS)}" / > -->
+		<apex:stylesheet value="{!URLFOR($Resource.bootstrap_sf1_beta16, 'bootstrap-sf1-0.1.0-beta.16/dist/css/bootstrap.css')}"/>
+        <apex:stylesheet value="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css" />
+		<script>
+			j$ = jQuery.noConflict();
+			j$(document).ready( function () {
+             var mydata = [
+               { id: "1", invdate: "2007-10-01", name: "test", note: "note", amount: "200.00", tax: "10.00", total: "210.00" },
+               { id: "2", invdate: "2007-10-02", name: "test2", note: "note2", amount: "300.00", tax: "20.00", total: "320.00" },
+               { id: "3", invdate: "2007-09-01", name: "test3", note: "note3", amount: "400.00", tax: "30.00", total: "430.00" },
+               { id: "4", invdate: "2007-10-04", name: "test", note: "note", amount: "200.00", tax: "10.00", total: "210.00" },
+               { id: "5", invdate: "2007-10-05", name: "test2", note: "note2", amount: "300.00", tax: "20.00", total: "320.00" },
+               { id: "6", invdate: "2007-09-06", name: "test3", note: "note3", amount: "400.00", tax: "30.00", total: "430.00" },
+               { id: "7", invdate: "2007-10-04", name: "test", note: "note", amount: "200.00", tax: "10.00", total: "210.00" },
+               { id: "8", invdate: "2007-10-03", name: "test2", note: "note2", amount: "300.00", tax: "20.00", total: "320.00" },
+               { id: "9", invdate: "2007-09-01", name: "test3", note: "note3", amount: "400.00", tax: "30.00", total: "430.00" }
+        ];
+                debugger;
+                //j$('#sampleTable').DataTable();
+               	 j$("#jqGrid").jqGrid({
+                datatype: "local",
+				data: mydata,
+                height: 250,
+                colModel: [
+                    { label: 'Inv No', name: 'id', width: 75, key:true },
+                    { label: 'Date', name: 'invdate', width: 90 },
+                    { label: 'Client', name: 'name', width: 100 },
+                    { label: 'Amount', name: 'amount', width: 80 },
+                    { label: 'Tax', name: 'tax', width: 80 },
+                    { label: 'Total', name: 'total', width: 80 },
+                    { label: 'Notes', name: 'note', width: 150 }
+                ],
+                viewrecords: true, // show the current page, data rang and total records on the toolbar
+                caption: "Load jqGrid through Javascript Array"
+            });
+			});
+		</script>
+	</head>
+	<body>
+		<table id="sampleTable" class="display">
+			<thead>
+				<tr>
+					<th>Account</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Phone</th>
+				</tr>
+			</thead>
+			<tbody>
+				<apex:repeat value="{!contactList}" var="contact">
+					<tr>
+						<td>{!contact.Account.Name}</td>
+						<td>{!contact.FirstName}</td>
+						<td>{!contact.LastName}</td>
+						<td>{!contact.Phone}</td>
+					</tr>
+				</apex:repeat>
+			</tbody>
+		</table>
+         <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+        <div class="chosensearch"></div>
+	</body>
+</apex:page>
